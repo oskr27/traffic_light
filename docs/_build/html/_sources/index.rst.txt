@@ -10,7 +10,8 @@ Welcome to Traffic Light Recognition's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   readme
+   README.rst
+   include_nbs.rst
 
 Indices and tables
 ==================
