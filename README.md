@@ -1,4 +1,15 @@
-# Traffic Light detector
+# Traffic Light Detector #
+
+Welcome to the Traffic Light Detector Repository by Oscar ROSAS (PF Lab @ The University of Tokyo)
+
+## INSTALL ##
+To start using this repository, you need to have installed in your computer the following:
+1. Python 3.7
+2. CUDA Toolkit 10.1
+3. Jupyter Notebook
+4. Fastai library
+
+
 
 Please add to this file:
 1. How to setup the dataset.
