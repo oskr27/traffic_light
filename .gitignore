@@ -1,4 +1,6 @@
+# Ignored datasets
 data/lisa-traffic-light-dataset/
 data/cropped-dataset/
-data/cropped-dataset-2/
+data/cropped-dataset-bulb/
 data/training-dataset/models/
+data/samples-manual-reduction
