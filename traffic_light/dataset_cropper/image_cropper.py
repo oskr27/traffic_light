@@ -123,6 +123,7 @@ def image_cropper():
 
             i = i + 1
 
+
 def main():
     initialize()
     image_cropper()
