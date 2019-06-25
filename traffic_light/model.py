@@ -1,5 +1,6 @@
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 
 
 class Model(nn.Module):
@@ -63,6 +64,8 @@ def load_model(path):
 
 
 def main():
+    model = Model()
+    print(model.state_dict())
     print('This class is only callable, not executable')
 
 
