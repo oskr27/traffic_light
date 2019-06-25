@@ -2,7 +2,7 @@ from PIL import Image
 import time
 
 
-def get_inference_time(model, path):
+def get_average_inference_time(model, path):
     inference_images = path.ls()
     average_time = 0
 
@@ -17,3 +17,10 @@ def get_inference_time(model, path):
     average_time = average_time / len(inference_images)
 
     return average_time
+
+
+def get_inference_time(model, sample_path):
+    start_time = time.time()
+
+    img = Image.open(sample_path)
+    model.predict(img)

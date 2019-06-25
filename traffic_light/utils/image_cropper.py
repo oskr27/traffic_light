@@ -2,7 +2,6 @@ from pathlib import Path
 from PIL import Image
 from random import choices
 
-import random
 import csv
 import os
 
