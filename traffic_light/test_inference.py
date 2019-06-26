@@ -1,43 +1,31 @@
 import torch
 import torch.nn as nn
 from torchvision import transforms, models
-from pathlib import Path
 from PIL import Image
+from traffic_light import load_model
 
 
 def load_image_as_tensor(path):
-    image = Image.open('../data/training-dataset/inference/dayClip1_46.jpg')
+    image = Image.open(path)
     tensor_image = transforms.ToTensor()(image)
     tensor_image = tensor_image.unsqueeze_(0)
     return tensor_image.cuda()
 
 
 def main():
-    exported_models_path = Path('../data/training-dataset/models/pickles')
-    model_list = [file for file in list(exported_models_path.glob('*.pkl'))]
-
-    exported_models_path = Path('../data/training-dataset/models')
-    model_list = [file for file in list(exported_models_path.glob('*.pth'))]
+    model_path = '../data/training-dataset/models/state_dict/resnet-34-no_tuning_dict.pth'
+    number_of_classes = 4
+    model = load_model.load_fastai_based_model(model_path, number_of_classes)
 
     sample_image = load_image_as_tensor('../data/training-dataset/inference/dayClip1_46.jpg')
-
-    checkpoint = torch.load(model_list[0], map_location='cuda')
-    model = models.resnet34(pretrained=False)
-    print('\nBefore loading...')
-    print(model.state_dict())
-    model.cuda()
-    model.load_state_dict(checkpoint['model'], strict=False)
-    # print(model.state_dict())
-
     model.eval()
-    print('\nAfter loading...')
-    print(model.state_dict())
-    out_pred = model(sample_image)
-    print(out_pred)
-    print(out_pred.size())
 
-    pred = out_pred.max(1, keepdim=True)[1]
-    print(pred.data[0])
+    print(sample_image.shape)
+    raw_out = model(sample_image)
+
+    soft_max = torch.nn.Softmax(dim=1)
+    out = soft_max(raw_out)
+    print(out[0])
 
 
 if __name__ == '__main__':
