@@ -11,22 +11,29 @@ def load_fastai_based_model(path, number_of_classes, model=nn.Module):
     # Architecture selection based on 'path'
     # If path does not specify, use model from parameters
     if 'resnet-34' in path:
+        number_of_features = 1024
         model = models.resnet34()
     elif 'resnet-50' in path:
+        number_of_features = 4096
         model = models.resnet50()
     elif 'densenet-121' in path:
+        number_of_features = 2048
         model = models.densenet121()
     else:
         model = model
 
-    # Module elimination from standard models in nn.Models
+    # Modification of modules in state dictionary to match fastai architectures
     modules = list(model.children())
-    modules.pop(-1)
-    modules.pop(-1)
+
+    if 'resnet' in path:  # Need to pop last two extra layers to match fastai architecture
+        modules.pop(-1)
+        modules.pop(-1)
+    elif 'densenet' in path:  # Need to pop last layer to match fastai architecture
+        modules.pop(-1)
 
     temp = nn.Sequential(nn.Sequential(*modules))
     temp_children = list(temp.children())
-    temp_children.append(model_utils.fast_ai_resnet34_head(1024, number_of_classes))
+    temp_children.append(model_utils.fast_ai_custom_head(number_of_features, number_of_classes))
 
     model = nn.Sequential(*temp_children)
 

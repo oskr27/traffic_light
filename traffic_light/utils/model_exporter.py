@@ -24,7 +24,7 @@ def export_pkl(path, model):
 
     data_set = ImageDataBunch.from_folder(training_dataset_path, ds_tfms=get_transforms(), size=224, bs=bs)
     learn = cnn_learner(data_set, base_arch=arch).load(model)
-    learn.export(str.replace(str(path), 'pth', 'pkl'))
+    learn.export(path/Path(model + '.pkl'))
 
 
 def export_state_dictionary(path, model):
@@ -39,7 +39,7 @@ def export_state_dictionary(path, model):
 
     data_set = ImageDataBunch.from_folder(training_dataset_path, ds_tfms=get_transforms(), size=224, bs=bs)
     learn = cnn_learner(data_set, base_arch=arch).load(model)
-    torch.save({'state_dict': learn.model.state_dict()}, str.replace(str(path), '.pth', '_dict.pth'))
+    torch.save({'state_dict': learn.model.state_dict()}, path/Path(model + '.pth'))
 
 
 def main():
@@ -47,8 +47,8 @@ def main():
     for file in model_list:
         if file.stem != 'tmp':
             print('Exporting ' + file.stem + '...')
-            export_state_dictionary(file, file.stem)
-            export_pkl(file, file.stem)
+            export_state_dictionary(models_path/'state_dict', file.stem)
+            export_pkl(models_path/'pickle', file.stem)
 
 
 if __name__ == '__main__':

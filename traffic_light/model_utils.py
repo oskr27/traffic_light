@@ -26,7 +26,7 @@ class AdaptiveConcatPool2d(nn.Module):
 
 
 # Custom Head from FastAI library
-def fast_ai_resnet34_head(number_of_features, number_of_classes):
+def fast_ai_custom_head(number_of_features, number_of_classes):
     return nn.Sequential(
         AdaptiveConcatPool2d(),
         Flatten(),

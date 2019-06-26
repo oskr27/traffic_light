@@ -13,9 +13,9 @@ def load_image_as_tensor(path):
 
 
 def main():
-    model_path = '../data/training-dataset/models/state_dict/resnet-34-no_tuning_dict.pth'
+    model_path = '../data/training-dataset/models/state_dict/densenet-121-no_tuning_dict.pth'
     number_of_classes = 4
-    model = load_model.load_fastai_based_model(model_path, number_of_classes)
+    model = load_model.load_fastai_based_model(model_path, number_of_classes, model=models.resnet34())
 
     sample_image = load_image_as_tensor('../data/training-dataset/inference/dayClip1_46.jpg')
     model.eval()
