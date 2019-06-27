@@ -62,9 +62,9 @@ def main():
     for file in model_list:
         if file.stem != 'tmp':
             print('Exporting ' + file.stem + '...')
-            # export_state_dictionary(models_path / 'state_dict', file.stem)
-            # export_pkl(models_path / 'pickle', file.stem)
-            export_h5(models_path / 'h5', file.stem)
+            export_state_dictionary(models_path / 'state_dict', file.stem)
+            export_pkl(models_path / 'pickle', file.stem)
+            # export_h5(models_path / 'h5', file.stem)
 
 
 if __name__ == '__main__':
