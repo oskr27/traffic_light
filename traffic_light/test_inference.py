@@ -1,12 +1,14 @@
 import torch
 import torch.nn as nn
 from torchvision import transforms, models
-from PIL import Image
 from traffic_light import load_model
+import cv2
 
 
 def load_image_as_tensor(path):
-    image = Image.open(path)
+    image = cv2.imread(path, 1)
+    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+
     tensor_image = transforms.ToTensor()(image)
     tensor_image = tensor_image.unsqueeze_(0)
     return tensor_image.cuda()
