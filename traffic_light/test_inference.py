@@ -14,6 +14,11 @@ def load_image_as_tensor(path):
     return tensor_image.cuda()
 
 
+def get_tags():
+    tags = ['go', 'goLeft', 'stop', 'stopLeft']
+    return tags
+
+
 def main():
     model_path = '../data/training-dataset/models/state_dict/densenet-121-no_tuning_dict.pth'
     number_of_classes = 4
@@ -27,7 +32,20 @@ def main():
 
     soft_max = torch.nn.Softmax(dim=1)
     out = soft_max(raw_out)
-    print(out[0])
+
+    tags = get_tags()
+    i = 0
+    max_prob = 0
+    max_index = 0
+    for prob in out[0]:
+        print(tags[i] + ': ' + str(prob))
+
+        if prob > max_prob:
+            max_prob = prob
+            max_index = i
+        i = i + 1
+
+    print('Inference Result: ' + tags[max_indx] + ' (' + out[0][max_index] + ')')
 
 
 if __name__ == '__main__':
