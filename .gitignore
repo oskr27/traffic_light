@@ -77,3 +77,6 @@ data/cropped-dataset-bulb/
 data/samples-manual-reduction
 
 
+__pycache__/
+*.py[cod]
+*$py.class
