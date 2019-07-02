@@ -4,7 +4,7 @@ from torchvision import models
 from traffic_light import model_utils
 
 
-def load_fastai_based_model(path, number_of_classes, model=nn.Module):
+def load_fastai_based_model(path, number_of_classes, model):
     # Loading checkpoint (file) from path
     fastai_model = torch.load(path)
 

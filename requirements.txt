@@ -11,7 +11,7 @@ blas=1.0=mkl
 bleach=3.1.0=py37_0
 bottleneck=1.2.1=py37h035aef0_1
 bzip2=1.0.6=h14c3975_1002
-ca-certificates=2019.6.16=hecc5488_0
+ca-certificates=2019.5.15=0
 cairo=1.14.12=h8948797_3
 certifi=2019.6.16=py37_0
 cffi=1.12.2=py37h2e261b9_1
@@ -30,7 +30,6 @@ dill=0.2.9=py37_0
 docutils=0.14=pypi_0
 entrypoints=0.3=py37_0
 expat=2.2.6=he6710b0_0
-fastai=1.0.52=1
 fastprogress=0.1.21=py_0
 ffmpeg=4.0.2=ha0c5888_2
 fontconfig=2.13.0=h9420a91_0
@@ -55,7 +54,7 @@ ipython_genutils=0.2.0=py37_0
 ipywidgets=7.4.2=py37_0
 jasper=2.0.14=h07fcdf6_1
 jedi=0.13.3=py37_0
-jinja2=2.10=py37_0
+jinja2=2.10.1=py37_0
 jpeg=9b=h024ee3a_2
 jsonschema=3.0.1=py37_0
 jupyter=1.0.0=py37_7
@@ -97,7 +96,6 @@ msgpack-python=0.6.1=py37hfd86e86_1
 murmurhash=1.0.2=py37he6710b0_0
 nbconvert=5.4.1=py37_3
 nbformat=4.4.0=py37_0
-nbsphinx=0.4.2=py_0
 ncurses=6.1=he6710b0_1
 nettle=3.3=0
 ninja=1.9.0=py37hfd86e86_0
@@ -109,12 +107,12 @@ nvidia-ml-py3=7.352.0=py_0
 olefile=0.46=py37_0
 opencv=3.4.2=py37h6fd60c2_1
 openh264=1.8.0=hdbcaa40_1000
-openssl=1.1.1b=h14c3975_1
+openssl=1.1.1c=h7b6447c_1
 packaging=19.0=py37_0
 pandas=0.24.2=py37he6710b0_0
 pandoc=2.7.2=0
 pandocfilters=1.4.2=py37_1
-parso=0.3.4=py37_0
+parso=0.5.0=py_0
 pcre=8.43=he6710b0_0
 pexpect=4.6.0=py37_0
 pickleshare=0.7.5=py37_0
@@ -143,9 +141,7 @@ pyzmq=18.0.0=py37he6710b0_0
 qt=5.9.7=h5867ecd_1
 qtconsole=4.4.3=py37_0
 readline=7.0=h7b6447c_5
-recommonmark=0.5.0=py_0
 regex=2018.01.10=py37h14c3975_1000
-requests=2.21.0=py37_0
 scipy=1.1.0=py37hfa4b5c9_1
 send2trash=1.5.0=py37_0
 setuptools=40.8.0=py37_0
@@ -153,8 +149,6 @@ sip=4.19.8=py37hf484d3e_0
 six=1.12.0=py37_0
 snowballstemmer=1.2.1=pypi_0
 soupsieve=1.8=py37_0
-spacy=2.0.18=py37hf484d3e_1000
-sphinx=2.0.1=py_0
 sphinxcontrib-applehelp=1.0.1=py_0
 sphinxcontrib-devhelp=1.0.1=py_0
 sphinxcontrib-htmlhelp=1.0.2=py_0
@@ -173,7 +167,7 @@ tqdm=4.31.1=py37_1
 traitlets=4.3.2=py37_0
 typing=3.6.4=py37_0
 ujson=1.35=py37h14c3975_0
-urllib3=1.24.1=py37_0
+urllib3=1.25.3=py37_0
 wcwidth=0.1.7=py37_0
 webencodings=0.5.1=py37_1
 wheel=0.33.1=py37_0
