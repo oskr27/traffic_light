@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Getting Started: Overview &amp; Installing Initial Project &mdash; Traffic Light Recognition 0.8 documentation</title>
+  <title>Traffic Light Detector &mdash; Traffic Light Recognition 0.8 documentation</title>
   
 
   
@@ -85,14 +85,14 @@
             
               <p class="caption"><span class="caption-text">Getting Started:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Getting Started: Overview &amp; Installing Initial Project</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#concepts">Concepts</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#sphinx-philosophy">Sphinx Philosophy</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Traffic Light Detector</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#getting-started">Getting Started</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#how-to-install">How to Install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#testing-a-single-image">Testing a single image</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="#traffic-light-detector">Traffic Light Detector</a></li>
 </ul>
 
             
@@ -138,7 +138,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Getting Started: Overview &amp; Installing Initial Project</li>
+      <li>Traffic Light Detector</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -181,18 +181,11 @@
     text-align: unset;
 }
 </style>
-<div class="section" id="getting-started-overview-installing-initial-project">
-<h1>Getting Started: Overview &amp; Installing Initial Project<a class="headerlink" href="#getting-started-overview-installing-initial-project" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="concepts">
-<h2>Concepts<a class="headerlink" href="#concepts" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="sphinx-philosophy">
-<h3>Sphinx Philosophy<a class="headerlink" href="#sphinx-philosophy" title="Permalink to this headline">¶</a></h3>
-</div>
-</div>
-</div>
 <div class="section" id="traffic-light-detector">
 <h1>Traffic Light Detector<a class="headerlink" href="#traffic-light-detector" title="Permalink to this headline">¶</a></h1>
 <p>Welcome to the Traffic Light Detector Repository by Oscar ROSAS (PF Lab &#64; The University of Tokyo)</p>
+<div class="section" id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
 <p>The main components for you to get the project up and running are the ones below:</p>
 <ul class="simple">
 <li><p>Anaconda 3</p></li>
@@ -203,6 +196,8 @@
 <li><p>A Linux-based OS distribution</p></li>
 <li><p>An Nvidia architecture GPU device</p></li>
 </ul>
+<div class="section" id="how-to-install">
+<h3>How to Install<a class="headerlink" href="#how-to-install" title="Permalink to this headline">¶</a></h3>
 <p>Using the terminal, execute the following instructions</p>
 <ol class="arabic">
 <li><p>Install Conda Virtual Environment Manager (the example installs Miniconda, but you can use Anaconda as well)</p>
@@ -227,6 +222,9 @@ $ conda activate base &amp;&amp; conda update conda
 </div>
 </li>
 </ol>
+</div>
+<div class="section" id="testing-a-single-image">
+<h3>Testing a single image<a class="headerlink" href="#testing-a-single-image" title="Permalink to this headline">¶</a></h3>
 <p>After you cloned the repository and ensuring all the dependencies are met, you may want to infer the class of a single
 image. For this, execute the instructions below in a terminal.</p>
 <div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>$ cd traffic_lights
@@ -244,6 +242,8 @@ $ python test_inference.py &#39;../data/training-dataset/inference/dayClip1_154.
 </div>
 <p>Format:
 <code class="docutils literal notranslate"><span class="pre">Image_path,</span> <span class="pre">Model_path,</span> <span class="pre">inference_result,</span> <span class="pre">class_score,</span> <span class="pre">inference_time</span></code></p>
+</div>
+</div>
 </div>
 
 
