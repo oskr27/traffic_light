@@ -5,7 +5,7 @@ from typing import Optional
 
 # Flatten 'x' to a single dimension, often used at the end of a model. 'full' for rank-1 tensor"
 class Flatten(nn.Module):
-    def __init__(self, full:bool=False):
+    def __init__(self, full: bool = False):
         super().__init__()
         self.full = full
 

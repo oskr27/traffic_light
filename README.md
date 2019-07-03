@@ -2,14 +2,38 @@
 
 Welcome to the Traffic Light Detector Repository by Oscar ROSAS (PF Lab @ The University of Tokyo)
 
+## Getting Started
+The main components for you to get the project up and running are the ones below:
+* Anaconda 3
+* Python 3
 
-## How to install
+In addition, the project assumes that you have the following configuration on your machine:
+* A Linux-based OS distribution
+* An Nvidia architecture GPU device
+
+### How to Install
+Using the terminal, execute the following instructions
+1. Install Conda Virtual Environment Manager (the example installs Miniconda, but you can use Anaconda as well)
+    ```
+    $ wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh && bash Miniconda3-latest-Linux-x86_64.sh
+    $ conda activate base && conda update conda
+    ```
+1. Clone this repository 
+    ```
+    $ git clone https://github.com/oskr27/traffic_light traffic_light
+    ```
+1. Create the virtual environment from the YML file in the repository
+    ```
+    $ cd traffic_light && conda env create -f traffic_light/environment.yml
+    ```
+1. Activate the virtual environment, and you should be all set
+    ```
+    $ conda activate traffic
+    ```
+### Testing a single image
+After you cloned the repository and ensuring all the dependencies are met, you may want to infer the class of a single
+image. For this, execute the instructions below in a terminal. 
 ```
-$ wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh && bash Miniconda3-latest-Linux-x86_64.sh
-$ conda activate base && conda update conda
-$ git clone https://github.com/oskr27/traffic_light
-$ cd traffic_light && conda env create -f environment.yml
-$ conda activate traffic
 $ cd traffic_lights
 $ python test_inference.py '../data/training-dataset/inference/dayClip1_154.jpg'
 ```

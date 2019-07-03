@@ -1,11 +1,13 @@
 import torch
 import torch.nn as nn
-from torchvision import transforms, models
-import load_model
+from torchvision import transforms
+
+import traffic_light.load_model as load_model
 import cv2
 import time
 import argparse
 import os
+
 
 def load_image_as_tensor(path):
     cv_image = cv2.imread(path, 1)
@@ -45,8 +47,9 @@ def infer_image(image_path, model_path):
 
     font = cv2.FONT_HERSHEY_SIMPLEX
     cv2.putText(cv_image, tags[max_index], (10, 20), font, 0.8, (0, 255, 0), 2, cv2.LINE_AA)
-    cv2.imshow("{:}".format(os.path.basename(model_path)),cv_image)
+    cv2.imshow("{:}".format(os.path.basename(model_path)), cv_image)
     cv2.waitKey(0)
+
 
 def main():
     parser = argparse.ArgumentParser(description='Traffic Light inference ')

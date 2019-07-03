@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 from torchvision import models
-import model_utils
+import traffic_light.model_utils as model_utils
 
 
 def load_fastai_based_model(path, number_of_classes, model):
