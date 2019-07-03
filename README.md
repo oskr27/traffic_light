@@ -1,5 +1,10 @@
 # Traffic Light Detector #
 Welcome to the Traffic Light Detector Repository by Oscar ROSAS (PF Lab @ The University of Tokyo)
+In this repository you will find a python project that quickly enables you to start working on the Traffic Light
+Detection problem. The project documentation is available [in this link](https://oskr27.github.io/traffic_light/ 
+"Traffic Light Documentation").
+
+For any discussions, comments, or questions, you can [contact me](mailto:oscar.rosas@pf.is.s.u-tokyo.ac.jp) directly.
 
 ## Getting Started ##
 The main components for you to get the project up and running are the ones below:
@@ -42,14 +47,11 @@ Using the terminal, execute the following instructions
 After you cloned the repository and ensuring all the dependencies are met, you may want to infer the class of a single
 image. For this, execute the instructions below in a terminal. 
     
-    
     $ cd traffic_lights
     $ python test_inference.py '../data/training-dataset/inference/dayClip1_154.jpg'
     
-
 Output:
 
-    
     '../data/training-dataset/inference/dayClip1_154.jpg','../data/training-dataset/models/state_dict/resnet-34-no_tuning_dict.pth','go',0.950,0.166[ms]
     '../data/training-dataset/inference/dayClip1_154.jpg','../data/training-dataset/models/state_dict/resnet-50-no_tuning_dict.pth','go',0.963,0.00719[ms]
     '../data/training-dataset/inference/dayClip1_154.jpg','../data/training-dataset/models/state_dict/densenet-121-no_tuning_dict.pth','go',0.915,0.0164[ms]
@@ -57,8 +59,5 @@ Output:
     '../data/training-dataset/inference/dayClip1_154.jpg','../data/training-dataset/models/state_dict/resnet-50-tuned_dict.pth','go',0.959,0.00658[ms]
     '../data/training-dataset/inference/dayClip1_154.jpg','../data/training-dataset/models/state_dict/densenet-121-tuned_dict.pth','go',0.937,0.0126[ms]
     
-    
-
-
 Format:
 `Image_path, Model_path, inference_result, class_score, inference_time`
