@@ -74,7 +74,8 @@ fabric.properties
 data/lisa-traffic-light-dataset/
 data/cropped-dataset/
 data/cropped-dataset-bulb/
-data/samples-manual-reduction
+data/cropped-dataset-selected/
+data/samples-manual-reduction/
 
 # Documentation related
 docsrc/_build/

@@ -1,6 +1,6 @@
 from pathlib import Path
 from PIL import Image
-from random import choices
+import random
 
 import csv
 import os
@@ -27,7 +27,7 @@ def initialize():
     path_img = master_path / 'images'
 
     global path_output
-    path_output = Path('../../data/cropped-dataset-no-filter')
+    path_output = Path('../../data/training-dataset-selected')
 
     global day_clip_list
     day_clip_list = ['dayClip' + str(i) for i in range(1, 13)]
@@ -46,8 +46,8 @@ def get_normal_area(box):
     y_center = (box[1] + box[3]) // 2
 
     # Creating new tuple with expanded area
-    x_1 = x_center - 111;
-    y_1 = y_center - 111;
+    x_1 = x_center - 111
+    y_1 = y_center - 111
 
     x_2 = x_center + 112 if x_1 >= 0 else x_center + 112 - x_1
     y_2 = y_center + 112 if y_1 >= 0 else y_center + 112 - y_1
@@ -65,7 +65,13 @@ def get_random_path():
     opts = ['train', 'valid', 'test']
     prob = [0.7, 0.2, 0.1]
 
-    return choices(opts, prob)[0]
+    return random.choices(opts, prob)[0]
+
+
+# Function that returns true if a random number is less than 0.1.
+# This will retrieve only 10% of the images for each video clip
+def is_selected():
+    return random.random() < 0.1
 
 
 # Returns the image class depending on the input
@@ -99,11 +105,12 @@ def image_cropper():
 
             i = 0
             for row in reader:
-                image_number.append(i)
-                file_name.append(row[0].replace('dayTraining/', ''))
-                tag.append(row[1])
-                box.append(row[2:6])
-                i = i + 1
+                if is_selected():
+                    image_number.append(i)
+                    file_name.append(row[0].replace('dayTraining/', ''))
+                    tag.append(row[1])
+                    box.append(row[2:6])
+                    i = i + 1
 
         i = 0
         while i < len(image_number):
