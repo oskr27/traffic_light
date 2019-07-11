@@ -71,11 +71,6 @@ fabric.properties
 
 ###########################################################################################################
 # Ignored datasets - Manually addition
-data/lisa-traffic-light-dataset/
-data/cropped-dataset/
-data/cropped-dataset-bulb/
-data/cropped-dataset-selected/
-data/samples-manual-reduction/
 
 # Documentation related
 docsrc/_build/
