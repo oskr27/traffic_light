@@ -2,6 +2,7 @@ from pathlib import Path
 from PIL import Image
 import random
 
+import sys
 import csv
 import os
 
@@ -16,9 +17,9 @@ anno_file = None
 
 
 # Global variable initialization
-def initialize():
+def initialize(path, output_path='../../data/lisa-cropped-dataset'):
     global master_path
-    master_path = Path('../../data/lisa-traffic-light-dataset')
+    master_path = Path(path)
 
     global path_anno
     path_anno = master_path / 'annotations'
@@ -27,7 +28,7 @@ def initialize():
     path_img = master_path / 'images'
 
     global path_output
-    path_output = Path('../../data/lisa-cropped-dataset')
+    path_output = Path(output_path)
 
     global day_clip_list
     day_clip_list = ['dayClip' + str(i) for i in range(1, 13)]
@@ -105,7 +106,7 @@ def image_cropper():
 
             i = 0
             for row in reader:
-                if is_selected(probability=0.1):
+                if is_selected(1):
                     image_number.append(i)
                     file_name.append(row[0].replace('dayTraining/', ''))
                     tag.append(row[1])
@@ -131,7 +132,14 @@ def image_cropper():
 
 
 def main():
-    initialize()
+    if len(sys.argv) < 1:
+        print('Missing argument: LISA dataset root directory')
+        sys.exit(-1)
+
+    if len(sys.argv) < 3:
+        initialize(sys.argv[1])
+    else:
+        initialize(sys.argv[1], sys.argv[2])
     image_cropper()
 
 

@@ -4,7 +4,6 @@ import sys
 import yaml
 import random
 
-
 WIDTH = 1280
 HEIGHT = 720
 
@@ -59,8 +58,8 @@ def get_normal_area(box):
     x_1 = x_1 if x_1 >= 0 else 0
     y_1 = y_1 if y_1 >= 0 else 0
 
-    x_2 = x_2 if x_2 < 1279 else 1279
-    y_2 = y_2 if y_2 < 719 else 719
+    x_2 = x_2 if x_2 < WIDTH else WIDTH - 1
+    y_2 = y_2 if y_2 < HEIGHT else HEIGHT - 1
 
     return x_1, y_1, x_2, y_2
 
@@ -101,7 +100,7 @@ def get_all_labels(input_yaml, clip=True):
     return images
 
 
-def show_label_images(input_yaml, output_folder='../../data/bosch-cropped-dataset'):
+def crop_images_from_labels(input_yaml, output_folder='../../data/bosch-cropped-dataset'):
     images = get_all_labels(input_yaml)
 
     if not os.path.exists(output_folder):
@@ -136,9 +135,9 @@ def main():
         sys.exit(-1)
 
     if len(sys.argv) < 3:
-        show_label_images(sys.argv[1])
+        crop_images_from_labels(sys.argv[1])
     else:
-        show_label_images(sys.argv[1], sys.argv[2])
+        crop_images_from_labels(sys.argv[1], sys.argv[2])
 
 
 if __name__ == '__main__':

@@ -71,6 +71,8 @@ fabric.properties
 
 ###########################################################################################################
 # Ignored datasets - Manually addition
+data/bosch-cropped-dataset
+data/lisa-cropped-dataset
 
 # Documentation related
 docsrc/_build/
