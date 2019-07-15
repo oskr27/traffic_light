@@ -2,7 +2,7 @@ from pathlib import Path
 from PIL import Image
 import random
 
-import sys
+import argparse
 import csv
 import os
 
@@ -17,7 +17,7 @@ anno_file = None
 
 
 # Global variable initialization
-def initialize(path, output_path='../../data/lisa-cropped-dataset'):
+def initialize(path, output_path):
     global master_path
     master_path = Path(path)
 
@@ -121,7 +121,11 @@ def image_cropper():
             cropped_image = image.crop(area)
 
             random_path = Path(get_random_path())
-            path_image_output = path_output / random_path / get_image_class(tag[i], True)
+
+            if str(random_path) != 'test':
+                path_image_output = path_output / random_path / get_image_class(tag[i], False)
+            else:
+                path_image_output = path_output / random_path
 
             if not os.path.exists(path_image_output):
                 os.makedirs(path_image_output)
@@ -131,17 +135,17 @@ def image_cropper():
             i = i + 1
 
 
-def main():
-    if len(sys.argv) < 1:
-        print('Missing argument: LISA dataset root directory')
-        sys.exit(-1)
+def parse_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--dataset_dir', default='')
+    parser.add_argument('--output_dir', default='../../data/lisa-cropped-dataset')
+    return parser.parse_args()
 
-    if len(sys.argv) < 3:
-        initialize(sys.argv[1])
-    else:
-        initialize(sys.argv[1], sys.argv[2])
+
+def main(args):
+    initialize(args.dataset_dir, args.output_dir)
     image_cropper()
 
 
 if __name__ == '__main__':
-    main()
+    main(parse_args())

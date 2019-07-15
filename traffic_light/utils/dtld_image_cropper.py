@@ -17,7 +17,7 @@ def get_random_path():
     opts = ['train', 'valid', 'test']
     prob = [0.7, 0.2, 0.1]
 
-    return np.random.choice(opts, 1, prob)[0]
+    return np.random.choice(opts, size=1, p=prob)[0]
 
 
 class DriveuObject:
@@ -33,7 +33,6 @@ class DriveuObject:
         track_id (string) Track ID of the object (representing one real-world TL instance)
 
     """
-
     def __init__(self):
         self.x = 0
         self.y = 0
@@ -127,13 +126,11 @@ class DriveuImage:
 
     Attributes:
         file_path (string):         Path of the left camera image
-        disp_file_path (string):    Path of the corresponding disparity image
         timestamp (float):          Timestamp of the image
         objects (DriveuObject)      Labels in that image
     """
     def __init__(self):
         self.file_path = ''
-        self.disp_file_path = ''
         self.timestamp = 0
         self.objects = []
 
@@ -165,7 +162,6 @@ class DriveuImage:
             Labeled 8 Bit BGR color image
 
         """
-
         status, img = self.get_image()
 
         if not os.path.exists(output_folder):
@@ -179,16 +175,17 @@ class DriveuImage:
             crop_img = img[my_box[1]:my_box[3], my_box[0]:my_box[2]].copy()
 
             if write:
-                new_path = os.path.join(output_folder, get_random_path(), o.get_normal_label())
+                random_path = get_random_path()
+
+                if random_path != 'test':
+                    new_path = os.path.join(output_folder, random_path, o.get_normal_label())
+                else:
+                    new_path = os.path.join(output_folder, random_path)
+
                 if not os.path.exists(new_path):
                     os.makedirs(new_path)
 
                 cv2.imwrite(os.path.join(new_path, str(o.unique_id) + '_' + str(o.class_id) + '.png'), crop_img)
-
-        for o in self.objects:
-            cv2.rectangle(img, (o.x, o.y), (o.x + o.width, o.y + o.height), o.color_from_class_id(), 2)
-
-        return img
 
 
 class DriveuDatabase:
@@ -206,7 +203,7 @@ class DriveuDatabase:
         """Method loading the dataset"""
         if os.path.exists(self.file_path) is not None:
             print('Opening DriveuDatabase from File: ' + str(self.file_path))
-            images = yaml.load(open(self.file_path, 'rb').read())
+            images = yaml.load(open(self.file_path, 'rb').read(), Loader=yaml.FullLoader)
 
             for i, image_dict in enumerate(images):
                 image = DriveuImage()
@@ -215,7 +212,6 @@ class DriveuDatabase:
                     image.file_path = data_base_dir + image_dict['path'][inds[-4]:]
                     inds = [i for i, c in enumerate(image_dict['disp_path']) if c == '/']
                     image.disp_file_path = data_base_dir + '/' + image_dict['disp_path'][inds[-4]:]
-                    print(image.file_path)
                 else:
                     image.file_path = image_dict['path']
                     image.disp_file_path = image_dict['disp_path']
@@ -244,22 +240,18 @@ class DriveuDatabase:
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--label_file', default='')
-    parser.add_argument('--data_base_dir', default='')
+    parser.add_argument('--yaml_file', default='')
+    parser.add_argument('--dataset_dir', default='')
     parser.add_argument('--output_dir', default='../../data/dtld-cropped-dataset')
     return parser.parse_args()
 
 
 def main(args):
-    database = DriveuDatabase(args.label_file)
-    database.open(args.data_base_dir)
+    database = DriveuDatabase(args.yaml_file)
+    database.open(args.dataset_dir)
 
     for idx_d, img in enumerate(database.images):
-        img_color = img.get_labeled_image_and_crop(args.output_dir)
-        # img_color = cv2.resize(img_color, (1024, 440))
-
-        # cv2.imshow("DTLD_visualized", img_color)
-        # cv2.waitKey(10)
+        img.get_labeled_image_and_crop(args.output_dir)
 
 
 if __name__ == '__main__':

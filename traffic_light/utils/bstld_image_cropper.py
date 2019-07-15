@@ -1,8 +1,8 @@
 import cv2
 import os
-import sys
 import yaml
 import random
+import argparse
 
 WIDTH = 1280
 HEIGHT = 720
@@ -73,7 +73,7 @@ def ir(some_value):
 def get_all_labels(input_yaml, clip=True):
     assert os.path.isfile(input_yaml), 'Input yaml {} does not exist'.format(input_yaml)
     with open(input_yaml, 'rb') as iy_handle:
-        images = yaml.load(iy_handle)
+        images = yaml.load(iy_handle, Loader=yaml.FullLoader)
 
     if not images or not isinstance(images[0], dict) or 'path' not in images[0]:
         raise ValueError('Something seems wrong with this label-file: {}'.format(input_yaml))
@@ -100,7 +100,7 @@ def get_all_labels(input_yaml, clip=True):
     return images
 
 
-def crop_images_from_labels(input_yaml, output_folder='../../data/bosch-cropped-dataset'):
+def crop_images_from_labels(input_yaml, output_folder):
     images = get_all_labels(input_yaml)
 
     if not os.path.exists(output_folder):
@@ -120,25 +120,32 @@ def crop_images_from_labels(input_yaml, output_folder='../../data/bosch-cropped-
             crop_img = image[my_box[1]:my_box[3], my_box[0]:my_box[2]].copy()
 
             if write:
-                new_path = os.path.join(output_folder, get_random_path(), get_normal_label(box))
+                random_path = get_random_path()
+
+                if random_path != 'test':
+                    new_path = os.path.join(output_folder, random_path, get_normal_label(box))
+                else:
+                    new_path = os.path.join(output_folder, random_path)
+
                 if not os.path.exists(new_path):
                     os.makedirs(new_path)
 
-                cv2.imwrite(os.path.join(new_path, str(i).zfill(5) + '_'
+                cv2.imwrite(os.path.join(new_path
+                                         , str(i).zfill(5) + '_'
                                          + str(j) + '_' + os.path.basename(image_dict['path'])), crop_img)
             j = j + 1
 
 
-def main():
-    if len(sys.argv) < 1:
-        print('Missing argument: YAML file directory')
-        sys.exit(-1)
+def parse_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--yaml_file', default='')
+    parser.add_argument('--output_dir', default='../../data/bosch-cropped-dataset')
+    return parser.parse_args()
 
-    if len(sys.argv) < 3:
-        crop_images_from_labels(sys.argv[1])
-    else:
-        crop_images_from_labels(sys.argv[1], sys.argv[2])
+
+def main(args):
+    crop_images_from_labels(args.yaml_file, args.output_dir)
 
 
 if __name__ == '__main__':
-    main()
+    main(parse_args())

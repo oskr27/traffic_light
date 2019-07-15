@@ -1,12 +1,11 @@
 import torch
 import torch.nn as nn
 from torchvision import transforms
-
-import traffic_light.load_model as load_model
 import cv2
 import time
 import argparse
 import os
+from traffic_light.utils import model_utils
 
 
 def load_image_as_tensor(path):
@@ -19,9 +18,11 @@ def load_image_as_tensor(path):
 
 
 def infer_image(image_path, model_path):
-    number_of_classes = 4
+    labels = model_utils.get_labels()
+    number_of_classes = len(labels)
+
     tensor_image, cv_image = load_image_as_tensor(image_path)
-    model = load_model.load_fastai_based_model(model_path, number_of_classes, None)
+    model = model_utils.load_fastai_based_model(model_path, number_of_classes, None)
 
     model.eval()
 
@@ -31,34 +32,36 @@ def infer_image(image_path, model_path):
     out = soft_max(raw_out)
     elapsed_time = time.process_time() - t
     i = 0
-    tags = ['go', 'goLeft', 'stop', 'stopLeft']
+
     max_prob = 0
     max_index = 0
 
     for prob in out[0]:
-        # print('\t' + tags[i] + ': ' + str(prob.item() * 100))
-
         if prob.item() > max_prob:
             max_prob = prob.item()
             max_index = i
         i = i + 1
 
-    print("'{:}','{:}','{:}',{:.3f},{:.3}[ms]".format(image_path, model_path, tags[max_index], max_prob, elapsed_time))
+    print("'{:}','{:}','{:}',{:.3f},{:.3}[ms]".format(image_path, model_path, labels[max_index], max_prob, elapsed_time))
 
     font = cv2.FONT_HERSHEY_SIMPLEX
-    cv2.putText(cv_image, tags[max_index], (10, 20), font, 0.8, (0, 255, 0), 2, cv2.LINE_AA)
+    cv2.putText(cv_image, labels[max_index], (10, 20), font, 0.8, (0, 255, 0), 2, cv2.LINE_AA)
     cv2.imshow("{:}".format(os.path.basename(model_path)), cv_image)
     cv2.waitKey(0)
 
 
-def main():
-    parser = argparse.ArgumentParser(description='Traffic Light inference ')
-    parser.add_argument('image', help='Image to test', type=str, default='../data/training-dataset/test/dayClip1_46.jpg')
-    args = parser.parse_args()
+def parse_args():
+    parser = argparse.ArgumentParser(description='Traffic Light Inference')
+    parser.add_argument('--image', help='Image to be tested', default='../data/training-dataset/test/dayClip1_46.jpg')
+    parser.add_argument('--model', help='A PTH Model', default='../data/training-dataset/models/state_dict/'
+                                                               'resnet-34-no_tuning_dict.pth')
+    return parser.parse_args()
 
+
+def main(args):
     image_path = args.image
+    model_path = args.model
 
-    model_path = '../data/training-dataset/models/state_dict/resnet-34-no_tuning_dict.pth'
     infer_image(image_path, model_path)
 
     model_path = '../data/training-dataset/models/state_dict/resnet-50-no_tuning_dict.pth'
@@ -78,4 +81,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    main(parse_args())
