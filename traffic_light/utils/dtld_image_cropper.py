@@ -109,7 +109,7 @@ class DriveuObject:
     def is_eligible(self):
         if str(self.class_id)[0] != '1':
             return False
-        if str(self.class_id)[1] == '2' or str(self.class_id)[1] == '3':
+        if str(self.class_id)[1] == '0' or str(self.class_id)[1] == '2':
             return False
         elif str(self.class_id)[-2] == '0':
             return False
@@ -210,11 +210,8 @@ class DriveuDatabase:
                 if data_base_dir != '':
                     inds = [i for i, c in enumerate(image_dict['path']) if c == '/']
                     image.file_path = data_base_dir + image_dict['path'][inds[-4]:]
-                    inds = [i for i, c in enumerate(image_dict['disp_path']) if c == '/']
-                    image.disp_file_path = data_base_dir + '/' + image_dict['disp_path'][inds[-4]:]
                 else:
                     image.file_path = image_dict['path']
-                    image.disp_file_path = image_dict['disp_path']
                 image.timestamp = image_dict['time_stamp']
 
                 for o in image_dict['objects']:
