@@ -16,20 +16,21 @@ def is_selected(probability):
 def copy_images(lisa_dataset_dir, bosch_dataset_dir, dtld_dataset_dir, output_dir, generate_sample):
     images = []
 
+    lisa_modifier = 0.10
+    bosch_modifier = 1.0
+    dtld_modifier = 0.5
+
     if lisa_dataset_dir != '':
         lisa_images = [file for file in lisa_dataset_dir.glob('**/*.*')]
-        images += random.sample(lisa_images, ir(len(lisa_images) * 0.10))
+        images += random.sample(lisa_images, ir(len(lisa_images) * lisa_modifier))
     if bosch_dataset_dir != '':
         bosch_images = [file for file in bosch_dataset_dir.glob('**/*.*')]
-        images += random.sample(bosch_images, ir(len(bosch_images) * 0.25))
+        images += random.sample(bosch_images, ir(len(bosch_images) * bosch_modifier))
     if dtld_dataset_dir != '':
         dtld_images = [file for file in dtld_dataset_dir.glob('**/*.*') if 'Right' not in str(file.parent)]
-        images += dtld_images
-
-    images = random.sample(images, ir(len(images) * 0.50))
+        images += random.sample(dtld_images, ir(len(dtld_images) * dtld_modifier))
 
     for image in images:
-        # Merging warning to stop
         if str(lisa_dataset_dir) in str(image):
             output = str.replace(str(image), str(lisa_dataset_dir), str(output_dir))
         elif str(bosch_dataset_dir) in str(image):
@@ -37,6 +38,7 @@ def copy_images(lisa_dataset_dir, bosch_dataset_dir, dtld_dataset_dir, output_di
         elif str(dtld_dataset_dir) in str(image):
             output = str.replace(str(image), str(dtld_dataset_dir), str(output_dir))
 
+        # Merging warning to stop
         if not os.path.exists(Path(output.replace('warning', 'stop')).parent):
             os.makedirs(Path(output.replace('warning', 'stop')).parent)
 
