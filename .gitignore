@@ -75,6 +75,7 @@ data/bosch-cropped-dataset
 data/lisa-cropped-dataset
 data/dtld-cropped-dataset
 data/training-dataset
+data/training-dataset-no-warn
 
 # Documentation related
 docsrc/_build/
